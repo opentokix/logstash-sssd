@@ -1,0 +1,72 @@
+SSSD_BASE sssd %{GREEDYDATA:sssd_message}
+SSSD_BASE2 sssd \(%{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{YEAR}\) \[sssd\[be\[default]]] \[%{WORD:sssd_type}\] %{GREEDYDATA:sssd_message}
+
+# pam_print_data
+SSSD_PAM_PRINT_BASE %{NOTSPACE}%{SPACE}%{GREEDYDATA:sssd_pam_print_data}
+SSSD_PAM1 authtok type: %{INT:sssd_pam_authok_type}
+SSSD_PAM2 cli_pid: %{INT:sssd_pam_cli_pid}
+SSSD_PAM3 command: %{WORD:sssd_pam_command}
+SSSD_PAM4 domain: %{WORD:sssd_pam_domain}
+SSSD_PAM5 logon%{GREEDYDATA}
+SSSD_PAM6 newauthtok type: %{INT:sssd_pam_newauthok_type}
+SSSD_PAM7 priv: %{INT:sssd_pam_priv}
+SSSD_PAM8 rhost: %{IP:sssd_pam_rhost}
+SSSD_PAM9 tty: %{WORD:sssd_pam_tty}
+SSSD_PAM10 user: %{USER:sssd_pam_user}@%{GREEDYDATA}
+SSSD_PAM11 service: %{GREEDYDATA:sssd_pam_service}
+SSSD_PAM12 ruser: %{GREEDYDATA}
+# dp_req_reply_gen_error 
+SSSD_REQ_REPLY %{NOTSPACE} DP Request \[%{WORD:sssd_dp_request}%{SPACE}#%{INT:sssd_dp_request_num}]: %{GREEDYDATA:sssd_error_msg}
+SSSD_DP_PAM \(%{BASE16NUM}\): Got request with the following data
+SSSD_DP_ACCOUNT %{NOTSPACE}%{SPACE}Got request for \[%{BASE16NUM}]\[%{WORD:sssd_dp_method}]\[%{WORD:sssd_dp_type}=%{PROG:sssd_dp_info}%{GREEDYDATA}
+
+# sysdb
+SSSD_SYSDB1 %{NOTSPACE}%{SPACE}Cannot find user \[%{USER:sssd_sysdb_no_user}@%{WORD}%{GREEDYDATA}
+SSSD_SYSDB2 \(%{BASE16NUM}\): %{CISCO_REASON:sssd_sysdb_err}: \[No such object]\(%{INT}\)\[ldb_wait from ldb_modify with %{WORD:sssd_sysdb_reason}%{GREEDYDATA}
+SSSD_SYSDB3 \(%{BASE16NUM}\): %{CISCO_REASON:sssd_sysdb_err}=%{USER:sssd_sysdb_user}@%{WORD},cn=%{WORD:sssd_sysdb_cn}%{GREEDYDATA}
+SSSD_SYSDB4 \(%{BASE16NUM}\): Entry \[name=%{USER:sssd_sysdb_user}@%{WORD},cn=%{WORD:sssd_sysdb_cn}%{NOTSPACE} has set \[%{WORD:sssd_sysdb_attr}%{GREEDYDATA}
+
+# sdap 
+SSSD_SDAP1 \(%{BASE16NUM}\): Access granted to all hosts
+SSSD_SDAP2 \(%{BASE16NUM}\): %{WORD}%{SPACE}%{WORD}%{SPACE}%{WORD}%{SPACE}%{INT:sssd_sdap_timeout}
+SSSD_SDAP3 \(%{BASE16NUM}\): %{CISCO_REASON:sssd_sdap_err}%{NOTSPACE}%{SPACE}%{CISCO_REASON:sssd_sdap_msg}%{GREEDYDATA}
+SSSD_SDAP4 \(0x0200\): %{CISCO_REASON:sssd_sdap_err}%{GREEDYDATA}
+SSSD_SDAP5 \(0x0020\): %{GREEDYDATA:sssd_sdap_err}
+SSSD_SDAP6 \(0x0040\): %{GREEDYDATA:sssd_sdap_err}
+# resolver 
+SSSD_RESOLV1 \(0x0100\): Trying to resolve %{WORD:sssd_resolver_type} record of '%{HOSTNAME:sssd_resolver_host}' in %{WORD:sssd_resolver_method}
+SSSD_RESOLV2 \(0x0040\): %{GREEDYDATA:sssd_resolver_err}
+SSSD_RESOLV3 \(0x0200\): %{GREEDYDATA:sssd_resolver_err}
+# be 
+SSSD_BE1 \(0x0080\): %{GREEDYDATA:sssd_be_err}
+SSSD_BE2 \(0x0040\): %{GREEDYDATA:sssd_be_err}
+SSSD_BE3 \(0x0200\): Found address for server %{HOSTNAME:sssd_be_server}: \[%{IP:sssd_be_ip}] TTL %{INT:sssd_be_ttl}
+# check ip 
+SSSD_CHECK_IP \(0x0200\): %{WORD}%{SPACE}%{WORD} address %{IP}
+# fo
+SSSD_FO1 \(0x0020\): %{GREEDYDATA:sssd_fo_err}
+SSSD_FO2 \(0x0100\): Marking port %{INT:sssd_fo_port} of server '%{HOSTNAME:sssd_fo_host}' as '%{CISCO_REASON:sssd_fo_state}'
+SSSD_FO3 \(0x0100\): %{CISCO_REASON:sssd_fo_action}'%{WORD:sssd_fo_action_item}'
+# generic ext search handler 
+SSSD_GENERIC_SEARCH \(0x0040\): %{WORD:sssd_err} failed %{NOTSPACE}%{SPACE}%{GREEDYDATA:sssd_err_reason}
+
+# port and server status 
+SSSD_GET_STATUS \(%{BASE16NUM}\): %{GREEDYDATA}
+
+# server common status 
+SSSD_COMMON_STATUS \(0x0100\): Marking server '%{HOSTNAME:sssd_server}' as '%{CISCO_REASON:sssd_server_status}%{GREEDYDATA}
+
+# simple bind send 
+SSSD_SIMPLE_BIND \(0x0100\): Executing simple bind as: %{WORD:sssd_bind_type}=%{USER:sssd_bind_user},ou=%{USER:sssd_bind_group}%{GREEDYDATA:sssd_bind_domain}
+
+# compound matches
+SSSD_PAM_COMP %{SSSD_PAM1}|%{SSSD_PAM2}|%{SSSD_PAM3}|%{SSSD_PAM4}|%{SSSD_PAM5}|%{SSSD_PAM6}|%{SSSD_PAM7}|%{SSSD_PAM8}|%{SSSD_PAM9}|%{SSSD_PAM10}|%{SSSD_PAM11}|%{SSSD_PAM12}
+SSSD_DP_COMP %{SSSD_REQ_REPLY}|%{SSSD_DP_PAM}|%{SSSD_DP_ACCOUNT}
+SSSD_SYSDB_COMP %{SSSD_SYSDB1}|%{SSSD_SYSDB2}|%{SSSD_SYSDB3}|%{SSSD_SYSDB4}
+SSSD_SDAP_COMP %{SSSD_SDAP1}|%{SSSD_SDAP2}|%{SSSD_SDAP3}|%{SSSD_SDAP4}|%{SSSD_SDAP5}|%{SSSD_SDAP6}
+SSSD_RESOLV_COMP %{SSSD_RESOLV1}|%{SSSD_RESOLV2}|%{SSSD_RESOLV3}
+SSSD_BE_COMP %{SSSD_BE1}|%{SSSD_BE2}|%{SSSD_BE3}
+SSSD_FO_COMP %{SSSD_FO1}|%{SSSD_FO2}|%{SSSD_FO3}
+
+####
+SSSD_BASE_COMP %{SSSD_PAM_PRINT_BASE}|%{SSSD_DP_COMP}
