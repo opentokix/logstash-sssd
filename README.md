@@ -10,8 +10,6 @@ Rsyslog config is very simple, just looks in a file and forward with the syslog 
 
 Logstash configuration is divided in two parts.
 
-Part 1:
-
 Look at the syslog messages and if it contains sssd add a tag for logstash named sssd and also do initial parsing of message.
 
 A log line will look something like this.
