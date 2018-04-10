@@ -1,7 +1,6 @@
 # Logstash config for System Security Services Daemon (sssd)
 
 This configuration is dived in a few parts.
-
 ### Rsyslog configuration
 
 Rsyslog config is very simple, just looks in a file and forward with the syslog config you have already but add a little sssd tag before the message (this is important).
